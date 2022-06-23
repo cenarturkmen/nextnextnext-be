@@ -11,12 +11,13 @@ const tokensRoutes = (app) => {
 
   app.post('/tokens', upload.single('img'), (req, res) => {
     const { filename } = req.file;
-    const { tokenId, name, description } = req.body;
-
+    const { tokenId, name, description, price } = req.body;
+    console.log(price)
     tokens[tokenId] = {
       name,
       description,
-      image: req.protocol + '://' + req.get('host') + "/images/" + filename
+      image: req.protocol + '://' + req.get('host') + "/images/" + filename,
+      price
     };
 
     fs.writeFileSync(dbFile, JSON.stringify(tokens));
@@ -28,7 +29,7 @@ const tokensRoutes = (app) => {
 
   app.get('/tokens/:tokenID', (req, res) => {
     const { tokenID } = req.params;
-
+    
     res.status(200).json(tokens[tokenID]);
   });
 };
