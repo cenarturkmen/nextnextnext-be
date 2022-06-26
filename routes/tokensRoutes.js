@@ -32,6 +32,11 @@ const tokensRoutes = (app) => {
     
     res.status(200).json(tokens[tokenID]);
   });
+
+  app.get('/healthcheck', (req, res) => {
+    
+    res.status(200).json("OK");
+  });
 };
 
 module.exports = tokensRoutes;
